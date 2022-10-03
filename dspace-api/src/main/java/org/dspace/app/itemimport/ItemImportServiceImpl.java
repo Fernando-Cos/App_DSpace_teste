@@ -1660,7 +1660,7 @@ public class ItemImportServiceImpl implements ItemImportService, InitializingBea
             entry = entries.nextElement();
             if (entry.isDirectory())
             {
-                if (!new File(zipDir + entry.getName()).mkdir())
+                if (!new File(zipDir, entry.getName()).mkdir())
                 {
                     log.error("Unable to create contents directory: " + zipDir + entry.getName());
                 }
@@ -1704,8 +1704,12 @@ public class ItemImportServiceImpl implements ItemImportService, InitializingBea
                 byte[] buffer = new byte[1024];
                 int len;
                 InputStream in = zf.getInputStream(entry);
+                final File zipEntryFile = new File(zipDir, entry.getName());
+                if (!zipEntryFile.toPath().normalize().startsWith(zipDir)) {
+                    throw new IOException("Bad zip entry");
+                }
                 BufferedOutputStream out = new BufferedOutputStream(
-                        new FileOutputStream(zipDir + entry.getName()));
+                        new FileOutputStream(zipEntryFile));
                 while((len = in.read(buffer)) >= 0)
                 {
                     out.write(buffer, 0, len);
