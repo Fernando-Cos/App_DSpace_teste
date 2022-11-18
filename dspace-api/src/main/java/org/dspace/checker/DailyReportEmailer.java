@@ -19,6 +19,7 @@ import javax.mail.MessagingException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -190,8 +191,7 @@ public class DailyReportEmailer
 
             if (directory.exists() && directory.isDirectory())
             {
-                report = File.createTempFile("checker_report", ".txt",
-                        directory);
+                report = Files.createTempFile(directory.toPath(), "checker_report", ".txt").toFile();
             }
             else
             {

@@ -10,6 +10,7 @@ package org.dspace.content.crosswalk;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -187,7 +188,7 @@ public class RoleCrosswalk
             // Create a temporary file to disseminate into
             String tempDirectory = (ConfigurationManager.getProperty("upload.temp.dir") != null)
                 ? ConfigurationManager.getProperty("upload.temp.dir") : System.getProperty("java.io.tmpdir"); 
-            File tempFile = File.createTempFile("RoleCrosswalkDisseminate" + dso.hashCode(), null, new File(tempDirectory));
+            File tempFile = Files.createTempFile(new File(tempDirectory).toPath(), "RoleCrosswalkDisseminate" + dso.hashCode(), null).toFile();
             tempFile.deleteOnExit();
 
             // Initialize our packaging parameters
@@ -317,7 +318,7 @@ public class RoleCrosswalk
         // Create a temporary file to ingest from
         String tempDirectory = (ConfigurationManager.getProperty("upload.temp.dir") != null)
             ? ConfigurationManager.getProperty("upload.temp.dir") : System.getProperty("java.io.tmpdir"); 
-        File tempFile = File.createTempFile("RoleCrosswalkIngest" + dso.hashCode(), null, new File(tempDirectory));
+        File tempFile = Files.createTempFile(new File(tempDirectory).toPath(), "RoleCrosswalkIngest" + dso.hashCode(), null).toFile();
         tempFile.deleteOnExit();
         FileOutputStream fileOutStream = null;
         try

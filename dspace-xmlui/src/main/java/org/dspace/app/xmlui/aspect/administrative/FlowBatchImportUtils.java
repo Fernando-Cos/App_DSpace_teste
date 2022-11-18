@@ -8,6 +8,7 @@
 package org.dspace.app.xmlui.aspect.administrative;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.sql.*;
 import java.util.*;
 import org.apache.cocoon.environment.*;
@@ -132,7 +133,7 @@ public class FlowBatchImportUtils {
 
                 File mapFile = null;
                 try {
-                    mapFile = File.createTempFile(file.getName(), ".map", itemImportService.getTempWorkDirFile());
+                    mapFile = Files.createTempFile(itemImportService.getTempWorkDirFile().toPath(), file.getName(), ".map").toFile();
                 } catch (IOException e) {
                     log.error("BatchImportUI Unable to create mapfile", e);
                     result.setContinue(false);

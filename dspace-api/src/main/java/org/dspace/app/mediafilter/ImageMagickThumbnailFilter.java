@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -102,7 +103,7 @@ public abstract class ImageMagickThumbnailFilter extends MediaFilter {
         }
 
         public File inputStreamToTempFile(InputStream source, String prefix, String suffix) throws IOException {
-                File f = File.createTempFile(prefix, suffix);
+                File f = Files.createTempFile(prefix, suffix).toFile();
                 f.deleteOnExit();
                 FileOutputStream fos = new FileOutputStream(f);
 
