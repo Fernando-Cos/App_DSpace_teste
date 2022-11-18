@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Required;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Map;
 
 /**
@@ -165,7 +166,7 @@ public class S3BitStoreService implements BitStoreService
 	{
         String key = getFullKey(bitstream.getInternalId());
         //Copy istream to temp file, and send the file, with some metadata
-        File scratchFile = File.createTempFile(bitstream.getInternalId(), "s3bs");
+        File scratchFile = Files.createTempFile(bitstream.getInternalId(), "s3bs").toFile();
         try {
             FileUtils.copyInputStreamToFile(in, scratchFile);
             Long contentLength = Long.valueOf(scratchFile.length());

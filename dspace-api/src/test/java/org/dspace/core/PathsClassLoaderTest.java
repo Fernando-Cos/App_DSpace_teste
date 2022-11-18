@@ -12,6 +12,7 @@ import com.sun.org.apache.bcel.internal.generic.ClassGen;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import org.junit.After;
@@ -55,7 +56,7 @@ public class PathsClassLoaderTest
 
         // Create a name for a temporary class file.
         try {
-            classFile = File.createTempFile(FILENAME_PREFIX, CLASS_FILENAME_SUFFIX);
+            classFile = Files.createTempFile(FILENAME_PREFIX, CLASS_FILENAME_SUFFIX).toFile();
             classFile.deleteOnExit();
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -82,7 +83,7 @@ public class PathsClassLoaderTest
         // Create a JAR containing the empty class.
         JarOutputStream jar;
         try {
-            jarFile = File.createTempFile(FILENAME_PREFIX, JAR_FILENAME_SUFFIX);
+            jarFile = Files.createTempFile(FILENAME_PREFIX, JAR_FILENAME_SUFFIX).toFile();
             jarFile.deleteOnExit();
             String jarFileName = jarFile.getName();
             jarClassName = jarFileName.substring(0,

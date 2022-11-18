@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -266,9 +267,7 @@ public class SubmissionLookupJSONRequest extends JSONRequest
                         uploadDir = null;
                     }
                 }
-                File file = File.createTempFile("submissionlookup-loader",
-                                                ".temp",
-                                                uploadDir);
+                File file = Files.createTempFile(uploadDir.toPath(), "submissionlookup-loader", ".temp").toFile();
                 BufferedOutputStream out = new BufferedOutputStream(
                         new FileOutputStream(file));
                 Utils.bufferedCopy(io, out);

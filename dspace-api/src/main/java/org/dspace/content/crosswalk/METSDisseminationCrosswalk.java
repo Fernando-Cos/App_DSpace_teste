@@ -9,6 +9,7 @@ package org.dspace.content.crosswalk;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +118,7 @@ public class METSDisseminationCrosswalk
             String tempDirectory = (ConfigurationManager.getProperty("upload.temp.dir") != null)
                 ? ConfigurationManager.getProperty("upload.temp.dir") : System.getProperty("java.io.tmpdir"); 
 
-            File tempFile = File.createTempFile("METSDissemination" + dso.hashCode(), null, new File(tempDirectory));
+            File tempFile = Files.createTempFile(new File(tempDirectory).toPath(), "METSDissemination" + dso.hashCode(), null).toFile();
             tempFile.deleteOnExit();
 
             // Disseminate METS to temp file

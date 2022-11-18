@@ -15,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.file.Files;
 
 import org.apache.log4j.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -94,7 +95,7 @@ public class PDFFilter extends MediaFilter
 
             if (useTemporaryFile)
             {
-                tempTextFile = File.createTempFile("dspacepdfextract" + source.hashCode(), ".txt");
+                tempTextFile = Files.createTempFile("dspacepdfextract" + source.hashCode(), ".txt").toFile();
                 tempTextFile.deleteOnExit();
                 writer = new OutputStreamWriter(new FileOutputStream(tempTextFile));
             }
